@@ -4,7 +4,7 @@ services:
    wordpress:
      image: microsoft/multicontainerwordpress
      volumes:
-      - ${WEBAPP_STORAGE_HOME}/site/wwwroot/wp-config:/var/www/html/wp-config
+      - ${WEBAPP_STORAGE_HOME}/site/wwwroot:/var/www/html
      ports:
        - "8000:80"
      restart: always
