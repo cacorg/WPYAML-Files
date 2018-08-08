@@ -4,11 +4,12 @@ services:
    wordpress:
      image: microsoft/multicontainerwordpress
      volumes:
-      - ${WEBAPP_STORAGE_HOME}/site/wwwroot/wp-config.php:/var/www/html/wp-config.php
-      - ${WEBAPP_STORAGE_HOME}/site/wwwroot/wp-content:/var/www/html/wp-content
-      - ${WEBAPP_STORAGE_HOME}/site/wwwroot/.htaccess:/var/www/html/.htaccess
+      - ${WEBAPP_STORAGE_HOME}/site/wwwroot:/var/www/html
      ports:
        - "8000:80"
+     RUN apt-get update \
+       && apt-get install -y --no-install-recommends openssh-server \
+       && echo "root:Docker!" | chpasswd
      restart: always
      environment:
        WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
