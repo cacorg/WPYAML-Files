@@ -12,6 +12,8 @@ services:
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
    wordpress:
+     depends_on:
+       - db
      image: microsoft/multicontainerwordpress
      volumes:
       - ${WEBAPP_STORAGE_HOME}/site/wwwroot:/var/www/html
@@ -20,6 +22,7 @@ services:
 
      restart: always
      environment:
+       WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: wordpress
        WORDPRESS_DB_PASSWORD: wordpress
        WORDPRESS_DB_NAME: wordpress
