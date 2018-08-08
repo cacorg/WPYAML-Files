@@ -24,8 +24,5 @@ services:
         WORDPRESS_DB_HOST: db:3306
         WORDPRESS_DB_USER: wordpress
         WORDPRESS_DB_PASSWORD: wordpress
-   redis:
-     image: redis:3-alpine
-     restart: always
 volumes:
     db_data:
