@@ -1,6 +1,16 @@
 version: '3.3'
 
 services:
+   db:
+     image: mysql:5.7
+     volumes:
+       - ${WEBAPP_STORAGE_HOME}/database:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+       MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+       MYSQL_USER: ${WORDPRESS_DB_USER}
+       MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
    wordpress:
      image: microsoft/multicontainerwordpress
      volumes:
@@ -13,19 +23,9 @@ services:
        WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
        WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
        WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME} 
+       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
    redis:
      image: redis:3-alpine
      restart: always
-RUN apt-get update \
-   && apt-get install -y --no-install-recommends openssh-server \
-   && echo "root:Docker!" | chpasswd
-COPY sshd_config /etc/ssh/
-EXPOSE 2222 80
-```docker
-COPY startup /opt/startup
-...
-RUN chmod 755 /opt/startup/init_container.sh
-...
-ENTRYPOINT ["/opt/startup/init_container.sh"]
-```
+volumes:
+    ${WEBAPP_STORAGE_HOME}/database:
