@@ -1,22 +1,24 @@
 # Change these four parameters as needed
 GROUP_NAME=wordpress
 DOMAIN_NAME=jimfinley.org
+WORDPRESS_DB_NAME=wordpress
+WORDPRESS_DB_PASSWORD=wordpress
+WORDPRESS_DB_USER=wordpress
+ACI_PERS_LOCATION=eastus
 
+
+#----------------------------------------------------
 #Changing anything below this line may break the code
-#------------------------------
+#----------------------------------------------------
 ACI_RANDOM=$RANDOM
 ACI_APPNAME=$GROUP_NAME$ACI_RANDOM
 ACI_SUBSCRIPTION=Sandbox
 ACI_PERS_RESOURCE_GROUP=$ACI_APPNAME
 ACI_PERS_STORAGE_ACCOUNT_NAME=$ACI_PERS_RESOURCE_GROUP$ACI_APPNAME
-ACI_PERS_LOCATION=eastus
 ACI_PERS_SHARE_NAME=source
 ACI_APP_SERVICE_PLAN=$ACI_APPNAME
 ACI_SQL=database$ACI_APPNAME
 ACI_FIREWALL=firewallrule$ACI_RANDOM
-WORDPRESS_DB_NAME=wordpress
-WORDPRESS_DB_PASSWORD=wordpress
-WORDPRESS_DB_USER=wordpress
 
 #Get most current version of files
 cd ~
@@ -29,7 +31,7 @@ cd WPYAML-Files
 az group create --subscription $ACI_SUBSCRIPTION --name $ACI_PERS_RESOURCE_GROUP --location "$ACI_PERS_LOCATION"
 az appservice plan create --name $ACI_APP_SERVICE_PLAN --subscription $ACI_SUBSCRIPTION --resource-group $ACI_PERS_RESOURCE_GROUP --location "$ACI_PERS_LOCATION" --sku S1 --is-linux
 az webapp create --subscription $ACI_SUBSCRIPTION --resource-group $ACI_PERS_RESOURCE_GROUP --plan $ACI_APP_SERVICE_PLAN --name $ACI_APPNAME --multicontainer-config-type compose --multicontainer-config-file docker-compose-wordpress.yml
-
+az webapp config appsettings set --subscription $ACI_SUBSCRIPTION --resource-group $ACI_PERS_RESOURCE_GROUP --name $ACI_APPNAME --settings WP_REDIS_HOST="redis"
 #create database folder in webapp root
 creds=($(az webapp deployment list-publishing-profiles --name $ACI_APPNAME --subscription $ACI_SUBSCRIPTION --resource-group $ACI_PERS_RESOURCE_GROUP \
 --query "[?contains(publishMethod, 'FTP')].[publishUrl,userName,userPWD]" --output tsv))
