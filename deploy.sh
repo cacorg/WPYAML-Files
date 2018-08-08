@@ -1,6 +1,11 @@
 # Change these four parameters as needed
+GROUP_NAME=wordpress
+DOMAIN_NAME=jimfinley.org
+
+#Changing anything below this line may break the code
+#------------------------------
 ACI_RANDOM=$RANDOM
-ACI_APPNAME=wordpress-jf-$ACI_RANDOM
+ACI_APPNAME=$GROUP_NAME$ACI_RANDOM
 ACI_SUBSCRIPTION=Sandbox
 ACI_PERS_RESOURCE_GROUP=$ACI_APPNAME
 ACI_PERS_STORAGE_ACCOUNT_NAME=$ACI_PERS_RESOURCE_GROUP$ACI_APPNAME
