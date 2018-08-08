@@ -4,7 +4,7 @@ services:
   db:
      image: mysql:5.7
      volumes:
-       - ${WEBAPP_STORAGE_HOME}/site/db_data:/var/lib/mysql
+       - db_data:/var/lib/mysql
      restart: always
      environment:
        MYSQL_ROOT_PASSWORD: somewordpress
@@ -28,3 +28,5 @@ services:
    redis:
      image: redis:3-alpine
      restart: always
+volumes:
+    db_data:
