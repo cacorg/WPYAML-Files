@@ -1,6 +1,17 @@
 version: '3.3'
 
 services:
+  db:
+     image: mysql:5.7
+     volumes:
+       - ${WEBAPP_STORAGE_HOME}/site/db_data:/var/lib/mysql
+     restart: always
+     environment:
+       MYSQL_ROOT_PASSWORD: somewordpress
+       MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+       MYSQL_USER: ${WORDPRESS_DB_USER}
+       MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+
    wordpress:
      image: microsoft/multicontainerwordpress
      volumes:
