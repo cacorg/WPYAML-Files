@@ -4,7 +4,7 @@ services:
    db:
      image: mysql:5.7
      volumes:
-       - ${WEBAPP_STORAGE_HOME}/db_data:/var/lib/mysql
+       - /var/db_data:/var/lib/mysql
      restart: always
      environment:
        MYSQL_ROOT_PASSWORD: somewordpress
@@ -17,7 +17,7 @@ services:
        - db
      image: wordpress:latest
      volumes:
-      - ${WEBAPP_STORAGE_HOME}/site/wwwroot:/var/www/html
+      - var/www/wp:/var/www/html
      ports:
        - "8000:80"
      restart: always
