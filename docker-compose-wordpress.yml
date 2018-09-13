@@ -11,13 +11,6 @@ services:
        MYSQL_DATABASE: wordpress
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
-   
-   scalyr:
-     image: scalyr/scalyr-docker-agent
-     volumes:
-       - ${WEBAPP_STORAGE_HOME}/api-key.json:/etc/scalyr-agent-2/agent.d/api_key.json
-     ports:
-       - "601:601"
 
    wordpress:
      depends_on:
