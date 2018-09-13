@@ -11,6 +11,16 @@ services:
        MYSQL_DATABASE: wordpress
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
+     driver: "syslog"
+     options:
+       syslog-address: "tcp://127.0.0.1:601"
+ 
+   scalyr:
+     image: scalyr/scalyr-docker-agent
+     volumes:
+       - ${WEBAPP_STORAGE_HOME}/api-key.json:/etc/scalyr-agent-2/agent.d/api_key.json
+     ports:
+       - "601:601"
 
    wordpress:
      depends_on:
@@ -25,6 +35,9 @@ services:
        WORDPRESS_DB_HOST: db:3306
        WORDPRESS_DB_USER: wordpress
        WORDPRESS_DB_PASSWORD: wordpress
+     driver: "syslog"
+     options:
+       syslog-address: "tcp://127.0.0.1:601"
 
    redis:
      image: redis:3-alpine
