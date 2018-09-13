@@ -11,9 +11,6 @@ services:
        MYSQL_DATABASE: wordpress
        MYSQL_USER: wordpress
        MYSQL_PASSWORD: wordpress
-     driver: "syslog"
-     options:
-       syslog-address: "tcp://127.0.0.1:601"
    
    scalyr:
      image: scalyr/scalyr-docker-agent
