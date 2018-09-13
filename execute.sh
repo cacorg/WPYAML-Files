@@ -26,7 +26,7 @@ az group create --name $ACI_PERS_RESOURCE_GROUP --location "$ACI_PERS_LOCATION"
 az appservice plan create --name $ACI_APP_SERVICE_PLAN --resource-group $ACI_PERS_RESOURCE_GROUP --sku S1 --is-linux
 az webapp create --resource-group $ACI_PERS_RESOURCE_GROUP --plan $ACI_APP_SERVICE_PLAN --name $ACI_APPNAME --multicontainer-config-type compose --multicontainer-config-file docker-compose-wordpress.yml
 #PERSISTENT STORAGE
-az webapp config appsettings set --subscription $ACI_SUBSCRIPTION --resource-group $ACI_PERS_RESOURCE_GROUP --name $ACI_APPNAME --settings WEBSITES_ENABLE_APP_SERVICE_STORAGE=TRUE
+az webapp config appsettings set  --resource-group $ACI_PERS_RESOURCE_GROUP --name $ACI_APPNAME --settings WEBSITES_ENABLE_APP_SERVICE_STORAGE=TRUE
 
 # Create Persistent sQL DB
 #az mysql server create --subscription $ACI_SUBSCRIPTION --resource-group $ACI_PERS_RESOURCE_GROUP --name $ACI_SQL  --location "$ACI_PERS_LOCATION" --admin-user $WORDPRESS_DB_NAME --admin-password $WORDPRESS_DB_PASSWORD --sku-name B_Gen4_1 --version 5.7
